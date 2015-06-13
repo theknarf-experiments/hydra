@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 #include "install.h"
@@ -18,9 +17,13 @@ int process_command_line_args(int argc, char* argv[])
 	if(strcmp(argv[1], "install")==0)
 	{
 		if(argc < 4)
-			return 1;
-
-		wpm_install(argv[2],argv[3]);
+		{
+			wpm_install_from_file();
+		}
+		else
+		{
+			wpm_install(argv[2],argv[3]);
+		}
 	}
 	else if(strcmp(argv[1], "list")==0)
 	{

@@ -1,6 +1,6 @@
 #ifndef INSTALL_H
 #define INSTALL_H
 
-void wpm_install(char* name, char* path);
+void wpm_install(const char* name, const char* path);
 
 #endif

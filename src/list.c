@@ -1,20 +1,18 @@
 #include "list.h"
+#include "settings.h"
 
 #include <jansson.h>
-#include <stdio.h>
-#include <string.h>
 
-void handle_requirement(char* name, json_t* obj)
+
+void handle_requirement(const char* key, const json_t* obj)
 {
 	if(json_is_string(obj))
 	{
 		printf("%s: %s\n", key, json_string_value(obj));
 	}
-
-
 }
 
-void process_json_file(json_t* root)
+void process_json_file(const json_t* root, void(*handle)(const char*, const json_t*))
 {
 	if(!json_is_object(root))
 	{
@@ -30,15 +28,15 @@ void process_json_file(json_t* root)
 	const char *key;
 	json_t* value;
 	json_object_foreach(require, key, value) {
-		handle_requirement(key, value);
+		handle(key, value);
 	}
 }
 
-void wpm_list()
+json_t* load_wpm_json()
 {
 	// Open file
-	FILE* fp = fopen("dep.json", "rb");
-	if( !fp ) fprintf(stderr, "Error opening dep.json"),exit(1);
+	FILE* fp = fopen(WPM_DEPENDENCY_FILE, "rb");
+	if( !fp ) fprintf(stderr, WPM_DEPENDENCY_FILE_OPENING_ERROR),exit(1);
 
 	// Get filesize
 	long lSize;
@@ -63,10 +61,16 @@ void wpm_list()
 	json_t* root = json_loads(buffer, 0, &error);
 	free(buffer);
 
-	if(!root)
+	if(!root) {
 		fprintf(stderr, "json read error on line %d: %s\n", error.line, error.text), exit(1);
+	}
 
-	process_json_file(root);
+	return root;
+}
 
+void wpm_list()
+{
+	json_t* root = load_wpm_json();
+	process_json_file(root, handle_requirement);
 	json_decref(root);
 }
