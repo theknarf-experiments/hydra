@@ -1,3 +1,11 @@
+# Custom
+
+### Test dependencie file ###
+dep.json
+wpm.json
+whales_modules/
+wpm_modules/
+
 # Created by https://www.gitignore.io
 
 ### CMake ###
