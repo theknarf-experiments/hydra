@@ -3,7 +3,17 @@ file(GLOB SRCS *.c)
 find_package("curl" REQUIRED)
 find_package("jansson" REQUIRED)
 
-include_directories(${CURL_INCLUDE_DIR} ${JANSSON_INCLUDE_DIR})
-link_libraries(${CURL_LIBRARY} ${JANSSON_LIBRARY})
+add_executable (wpm
+    install.c install.h
+    list.c list.h
+    wpm.c
+)
 
-add_executable (wpm ${SRCS})
+target_include_directories(wpm PUBLIC
+    ${CURL_INCLUDE_DIR}
+    ${JANSSON_INCLUDE_DIR}
+)
+target_link_libraries(wpm
+    ${CURL_LIBRARY}
+    ${JANSSON_LIBRARIES}
+)
