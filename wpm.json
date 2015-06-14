@@ -1,0 +1,5 @@
+{
+	"require" : {
+		"Catch.zip" : "https://github.com/philsquared/Catch/archive/master.zip"
+	}
+}
