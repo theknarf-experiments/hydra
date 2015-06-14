@@ -1,5 +1,5 @@
 #include "list.h"
-#include "settings.h"
+#include "variables.h"
 
 #include <jansson.h>
 

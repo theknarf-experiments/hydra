@@ -1,6 +1,8 @@
 #include "install.h"
-#include "settings.h"
+#include "variables.h"
 #include "list.h"
+#include "process.h"
+#include "filepath.h"
 
 #include <sys/stat.h>
 #include <curl/curl.h>
@@ -21,8 +23,8 @@ void wpm_install(const char* name, const char* path)
 
 	if(curl)
 	{
-		char file_path[100];
-		snprintf(file_path, sizeof file_path, "%s/%s",WPM_DEPENDENCY_INSTALL_DIR, name);
+		filepath* filepath = new_filepath(name, WPM_DEPENDENCY_INSTALL_DIR);
+		char* file_path = fullpath(filepath);
 
 		printf("Writing to: %s\n", file_path);
 		FILE *fp = fopen(file_path, "wb");
@@ -34,6 +36,13 @@ void wpm_install(const char* name, const char* path)
 		CURLcode res = curl_easy_perform(curl);
 
 		fclose(fp);
+		free(file_path);
+
+		if(res == CURLE_OK) {
+			process(filepath);
+		}
+
+		free_filepath(filepath);
 	}
 	else
 	{
@@ -53,7 +62,7 @@ void wpm_handle_requirement(const char* key, const json_t* obj)
 
 void wpm_install_from_file()
 {
-	const json_t* root = load_wpm_json();
+	json_t* root = load_wpm_json();
 	process_json_file(root, wpm_handle_requirement);
 	json_decref(root);
 }

@@ -7,7 +7,7 @@ add_executable (wpm
     install.c install.h
     list.c list.h
     wpm.c
-settings.h)
+variables.h process.h process.c filepath.h filepath.c variables.c)
 
 target_include_directories(wpm PUBLIC
     ${CURL_INCLUDE_DIR}
