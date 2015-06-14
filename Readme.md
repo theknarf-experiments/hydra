@@ -1,5 +1,5 @@
 #WPM - Whale package manager
-![travis-ci](https://travis-ci.org/whalelang/wpm.svg?branch=master)
+[![Build Status](https://travis-ci.org/whalelang/wpm.svg?branch=master)](https://travis-ci.org/whalelang/wpm)
 
 A package manager for languages like C and C++
 
