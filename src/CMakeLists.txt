@@ -1,7 +1,7 @@
 file(GLOB SRCS *.c)
 
 find_package("CURL" REQUIRED)
-find_package("jansson" REQUIRED)
+find_package("Jansson" REQUIRED)
 
 add_executable (wpm
     install.c install.h
