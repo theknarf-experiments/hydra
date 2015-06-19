@@ -13,12 +13,12 @@
 #define WPM_DEPENDENCY_FILE_OPENING_ERROR "Error opening wpm.json"
 #define WPM_DEPENDENCY_INSTALL_DIR "wpm_modules"
 
-void concat_impl(void *result, char *sourceA, int num, ...);
+void* concat_impl(char *sourceA, int num, ...);
 
-#define NUMARGS(...)  (sizeof((char[]){__VA_ARGS__})/sizeof(char))
+#define NUMARGS(...) (sizeof((int[]){0, ##__VA_ARGS__})/sizeof(int)-1)
 #define concat(result, sourceA, ...) \
             do { \
-                concat_impl(result, sourceA, NUMARGS(__VA_ARGS__), __VA_ARGS__); \
+                result = concat_impl(sourceA, NUMARGS(__VA_ARGS__), __VA_ARGS__); \
             } while(0)
 
 #endif //WPM_SETTINGS_H

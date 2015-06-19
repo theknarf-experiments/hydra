@@ -8,7 +8,6 @@
 #include "filepath.h"
 #include "variables.h"
 
-
 char* fullpath(const filepath* fp) {
     char* file_path;
     concat(file_path, fp->path, "/", fp->name);
