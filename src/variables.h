@@ -7,22 +7,18 @@
 
 #include <stdarg.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define WPM_DEPENDENCY_FILE "wpm.json"
 #define WPM_DEPENDENCY_FILE_OPENING_ERROR "Error opening wpm.json"
 #define WPM_DEPENDENCY_INSTALL_DIR "wpm_modules"
 
-#define NUMARGS(...)  (sizeof((int[]){__VA_ARGS__})/sizeof(int))
+void concat_impl(void *result, char *sourceA, int num, ...);
 
-int strlen_all(int num, ...);
-
-void strcat_all(char* result, int num, ...);
-
+#define NUMARGS(...)  (sizeof((char[]){__VA_ARGS__})/sizeof(char))
 #define concat(result, sourceA, ...) \
             do { \
-                result = (char*) calloc(strlen(sourceA)+strlen_all(NUMARGS(__VA_ARGS__), __VA_ARGS__)+1, sizeof(char)); \
-                strcpy(result, sourceA); \
-                strcat_all(result, NUMARGS(__VA_ARGS__), __VA_ARGS__); \
+                concat_impl(result, sourceA, NUMARGS(__VA_ARGS__), __VA_ARGS__); \
             } while(0)
 
 #endif //WPM_SETTINGS_H
