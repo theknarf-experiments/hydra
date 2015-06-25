@@ -3,10 +3,11 @@
 
 #include "install.h"
 #include "list.h"
+#include "init.h"
 
 void help_option()
 {
-	printf("wpm (Whale package manger)\nusage: \n\tinstall\n\tlist\n");
+	printf("wpm (Whale package manger)\nusage: \n\tinit\n\tinstall\n\tlist\n");
 }
 
 int process_command_line_args(int argc, char* argv[])
@@ -14,7 +15,15 @@ int process_command_line_args(int argc, char* argv[])
 	if(argc < 2)
 		return 1;
 
-	if(strcmp(argv[1], "install")==0)
+	if(strcmp(argv[1], "init")==0)
+	{
+		if(argc > 2) {
+			wpm_init(argv[2]);
+		} else {
+			wpm_init(".");
+		}
+	}
+	else if(strcmp(argv[1], "install")==0)
 	{
 		if(argc < 4)
 		{

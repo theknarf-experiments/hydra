@@ -10,7 +10,7 @@
 #include <stdlib.h>
 
 #define WPM_DEPENDENCY_FILE "wpm.json"
-#define WPM_DEPENDENCY_FILE_OPENING_ERROR "Error opening wpm.json"
+#define WPM_DEPENDENCY_FILE_OPENING_ERROR "Error opening wpm.json.\n\n\tTo initialize a new wpm.json file use `wpm init`"
 #define WPM_DEPENDENCY_INSTALL_DIR "wpm_modules"
 
 void* concat_impl(char *sourceA, int num, ...);
