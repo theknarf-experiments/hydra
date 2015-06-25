@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// Using PATH_MAX is a bad implementation, source: http://insanecoding.blogspot.no/2007/11/pathmax-simply-isnt.html
+// TODO: rewrite functiontions using PATH_MAX so we don't have to rely on it
 #ifdef  __APPLE__
 #include <sys/syslimits.h>
 #else
