@@ -2,9 +2,14 @@
 // Created by Frank Lyder Bredland on 25/06/15.
 //
 
-#include <sys/syslimits.h>
 #include <stdlib.h>
 #include <stdio.h>
+
+#ifdef  __APPLE__
+#include <sys/syslimits.h>
+#else
+#define	PATH_MAX		 1024	/* max bytes in pathname */
+#endif
 
 char* normalize_path(const char *path) {
     // TODO:    implement this for windows
