@@ -1,7 +1,7 @@
-#WPM - Whale package manager
+#HPM - Hydra package manager
 [![Build Status](https://travis-ci.org/whalelang/wpm.svg?branch=master)](https://travis-ci.org/whalelang/wpm)
 
-A package manager for languages like C and C++
+_Hydra package manager; the cross-platform polyglot version-control-agnostic language package manager for C- and C++-like languages._
 
 ## Usage
 
