@@ -1,5 +1,5 @@
 use clap::{Parser, Subcommand};
-use crate::check::check;
+use crate::check::*;
 
 mod check;
 
@@ -15,6 +15,9 @@ struct Cli {
 enum Commands {
   Check {
 
+  },
+  Repl {
+
   }
 }
 
@@ -24,6 +27,9 @@ fn main() -> Result<(), &'static str> {
   match args.command {
     Commands::Check {} => {
       check()?
+    }
+    Commands::Repl {} => {
+      repl()?
     }
   }
 
