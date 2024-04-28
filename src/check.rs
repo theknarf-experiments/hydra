@@ -61,13 +61,7 @@ impl UserData for Dependency {
 
 const HYDRA_LUA : &str = "./hydra.lua";
 
-pub fn check() -> Result<(), &'static str> {
-	if !Path::new(HYDRA_LUA).exists() {
-		return Result::Err("Missing lua");
-	}
-
-	let source = fs::read_to_string(HYDRA_LUA).unwrap();
-
+fn create_lua_enviroment() -> mlua::Lua {
 	let lua = Lua::new();
 	lua.sandbox(true).unwrap();
 
@@ -75,26 +69,28 @@ pub fn check() -> Result<(), &'static str> {
 	lua.globals().set("Manifest", Manifest).unwrap();
 	lua.globals().set("Dependency", Dependency).unwrap();
 
+  lua
+}
+
+pub fn check() -> Result<(), &'static str> {
+	if !Path::new(HYDRA_LUA).exists() {
+		return Result::Err("Missing lua");
+	}
+
+  let lua = create_lua_enviroment();
+	let source = fs::read_to_string(HYDRA_LUA).unwrap();
 	lua.load(source).exec().unwrap();
 
 	Ok(())
 }
 
 pub fn repl() -> Result<(), &'static str> {
-	if !Path::new(HYDRA_LUA).exists() {
-		return Result::Err("Missing lua");
+  let lua = create_lua_enviroment();
+
+  if Path::new(HYDRA_LUA).exists() {
+    let source = fs::read_to_string(HYDRA_LUA).unwrap();
+    lua.load(source).exec().unwrap();
 	}
-
-	let source = fs::read_to_string(HYDRA_LUA).unwrap();
-
-	let lua = Lua::new();
-	lua.sandbox(true).unwrap();
-
-	lua.globals().set("Handler", Handler).unwrap();
-	lua.globals().set("Manifest", Manifest).unwrap();
-	lua.globals().set("Dependency", Dependency).unwrap();
-
-	lua.load(source).exec().unwrap();
 
 	let mut rl = DefaultEditor::new().unwrap();
 
