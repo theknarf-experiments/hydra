@@ -2,6 +2,9 @@
 
 > Hydra - the swiss army knife of package management
 
+## Roadmap
+
+[Check the plan](./plan.md)
 
 ## Dev
 
