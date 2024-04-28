@@ -30,6 +30,11 @@ impl UserData for Manifest {
     fn add_fields<'lua, F: mlua::UserDataFields<'lua, Self>>(_fields: &mut F) {
     }
     fn add_methods<'lua, M: mlua::UserDataMethods<'lua, Self>>(methods: &mut M) {
+      methods.add_method("add_handler", |_, _this, ()| {
+        print!("todo: implement add_handler\n");
+        Ok(())
+      });
+
       methods.add_method("add_dependency", |_, _this, ()| {
         print!("todo: implement add_dependency\n");
         Ok(())
@@ -51,7 +56,6 @@ impl UserData for Dependency {
       methods.add_meta_function(MetaMethod::Call, |_, ()| Ok(Dependency::default()));
     }
 }
-
 
 pub fn check() -> Result<(), &'static str> {
   const HYDRA_LUA : &str = "./hydra.lua";

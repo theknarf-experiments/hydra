@@ -1,11 +1,27 @@
 print("Hello world from lua!");
 
-local h = Handler();
+local handle = Handler();
 
-h:add_handler();
+handle:add_handler(--[[ http handler ]]);
+handle:add_handler(--[[ zip-file handler ]]);
+handle:add_handler(--[[ md5 checksum handler ]]);
 
-local m = Manifest();
+local mani = Manifest();
 
-m:add_dependency(--[[ "http://curl.haxx.se/download/curl-7.42.1.zip" ]]);
-m:add_dependency(--[[ "https://github.com/philsquared/Catch/archive/master.zip" ]]);
-m:add_dependency(--[[ "https://github.com/akheron/jansson/archive/master.zip" ]]);
+mani:add_handler(handle);
+
+mani:add_dependency{
+	name="curl",
+	url="http://curl.haxx.se/download/curl-7.42.1.zip",
+	checksum="",
+};
+mani:add_dependency{
+	name="catch",
+	url="https://github.com/philsquared/Catch/archive/master.zip",
+	checksum="",
+}
+mani:add_dependency{
+	name="jansson",
+	url="https://github.com/akheron/jansson/archive/master.zip",
+	checksum="",
+}
