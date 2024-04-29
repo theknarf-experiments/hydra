@@ -3,4 +3,12 @@ const withNextra = require('nextra')({
   themeConfig: './theme.config.jsx'
 });
 
-module.exports = withNextra();
+module.exports = withNextra({
+	basePath: '/hydra',
+	assetPrefix: '/hydra/',
+
+	output: 'export',
+	images: {
+		unoptimized: true,
+	},
+});
